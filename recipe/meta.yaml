@@ -1,0 +1,47 @@
+{% set name = "tinytag" %}
+{% set version = "2.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f15b082510f6e0fc717e597edc8759d6f2d3ff6194ac0f3bcd675a9a09d9b798
+
+build:
+  number: 0
+  skip: true  # [py<310]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python
+    - pip
+    - flit-core >=3.2
+  run:
+    - python
+
+test:
+  imports:
+    - tinytag
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/tinytag/tinytag
+  summary: Python library for reading audio file metadata
+  description: |
+    tinytag is a Python library for reading audio file metadata.
+    It supports MP3, OGG, OPUS, MP4, M4A, FLAC, WMA, WAV, AIFF, and other formats.
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  doc_url: https://github.com/tinytag/tinytag
+  dev_url: https://github.com/tinytag/tinytag
+
+extra:
+  recipe-maintainers:
+    - pavelzw
