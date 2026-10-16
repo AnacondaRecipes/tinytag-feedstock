@@ -1,5 +1,5 @@
 {% set name = "tinytag" %}
-{% set version = "2.2.1" %}
+{% set version = "2.3.2" %}
 
 package:
   name: {{ name }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e6d06610ebe7cd66fd07be2d3b9495914ab32654a5e47657bb8cd44c2484523c
+  sha256: 021d711cdbdbf840d3b67b976cb34dadc58d2fcfd490eb74ef9602b37b991414
 
 build:
   number: 0
-  skip: true  # [py<37]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
@@ -23,6 +23,7 @@ requirements:
     - python
 
 test:
+  # Upstream test suite (tinytag/tests/) is excluded from the PyPI sdist, so only import and pip check can run.
   imports:
     - tinytag
   commands:
